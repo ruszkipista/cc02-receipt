@@ -1,2 +1,2 @@
-# cc02-receipt
+# Sales Receip Kata
 Print content of shopping basket
