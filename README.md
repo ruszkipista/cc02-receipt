@@ -1,7 +1,7 @@
 # Sales Receip Kata
 ### Print content of shopping basket
 
-Basic sales tax is applicable at a rate of 10% on all goods, except books, food, and medical products that are exempt. Import duty is an additional sales tax applicable on all imported goods at a rate of 5%, with no exemptions. Sales tax is always rounded to the nearest £0.05.
+Basic sales tax is applicable at a rate of 10% on all goods, except books, food, and medical products that are exempt. Import duty is an additional sales tax applicable on all imported goods at a rate of 5%, with no exemptions. Sales tax is always rounded to the nearest £0.05
 
 When I purchase items I receive a receipt which lists the name of all the items and their price (including tax), finishing with the total cost of the items, and the total amount of sales taxes paid. 
 
@@ -46,3 +46,5 @@ Total: £65.15
 Sales Taxes: £6.70
 Total: £74.68
 ```
+
+This solution was inspired by https://github.com/unclebob/videostore

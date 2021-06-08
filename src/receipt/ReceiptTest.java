@@ -10,6 +10,7 @@ import static org.junit.Assert.assertTrue;
 
 public class ReceiptTest {
     private Receipt receipt;
+    private ItemNormal item0 = new ItemNormal(0,"Goods 1",1.0);
 
     @Before
     public void setUp() throws Exception {
@@ -18,7 +19,12 @@ public class ReceiptTest {
     
     @Test
     public void emptyReceipt_SalesTax0_Total0() throws Exception {
-        // String emptyBasket = "Sales Taxes: $0.00\nTotal: $0.00";
+       assertSalesTaxAndTotal(0,0);
+    }
+
+    @Test
+    public void oneItem0Quantity_SalesTax0_Total0() throws Exception {
+        receipt.add(item0);
         assertSalesTaxAndTotal(0,0);
     }
 
