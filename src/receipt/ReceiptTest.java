@@ -64,11 +64,11 @@ public class ReceiptTest {
 
     @Test
     public void salesTaxRoundToNearest5c() throws Exception {
-        assertEquals(0,    Material.roundSalesTaxTo5c(0.0), EPSILON);
-        assertEquals(0.95, Material.roundSalesTaxTo5c(0.93), EPSILON);
-        assertEquals(0.8,  Material.roundSalesTaxTo5c(0.81), EPSILON);
-        assertEquals(0.65, Material.roundSalesTaxTo5c(0.65), EPSILON);
-        assertEquals(0.7,  Material.roundSalesTaxTo5c(0.68), EPSILON);
-        assertEquals(0.65, Material.roundSalesTaxTo5c(0.67), EPSILON);
+        assertEquals(0,    SalesTax.roundAmountTo5c(0.0), EPSILON);
+        assertEquals(0.95, SalesTax.roundAmountTo5c(0.93), EPSILON);
+        assertEquals(0.8,  SalesTax.roundAmountTo5c(0.81), EPSILON);
+        assertEquals(0.65, SalesTax.roundAmountTo5c(0.65), EPSILON);
+        assertEquals(0.7,  SalesTax.roundAmountTo5c(0.68), EPSILON);
+        assertEquals(0.65, SalesTax.roundAmountTo5c(0.67), EPSILON);
     }
 }

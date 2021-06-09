@@ -16,11 +16,7 @@ public class SoldItem {
     }
 
   public double calculateSalesTax(){
-      double salesTax = 0;
-      double netValue = calculateNetValue();
-      salesTax += material.getBasicSalesTaxRate() * netValue;
-      salesTax += material.getInportDutyRate() * netValue;
-      return salesTax;
+      return SalesTax.calculate(material, quantity, salePrice);
   }
 
 }
