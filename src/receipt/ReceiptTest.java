@@ -62,4 +62,14 @@ public class ReceiptTest {
         receipt.add(item4exempt);
         assertSalesTaxAndTotal(0.0, 10.0);
     }
+
+    @Test
+    public void salesTaxRoundToNearest5c() throws Exception {
+        assertEquals(0,    Item.roundSalesTax(0.0), EPSILON);
+        assertEquals(0.95, Item.roundSalesTax(0.93), EPSILON);
+        assertEquals(0.8,  Item.roundSalesTax(0.81), EPSILON);
+        assertEquals(0.65, Item.roundSalesTax(0.65), EPSILON);
+        assertEquals(0.7,  Item.roundSalesTax(0.68), EPSILON);
+        assertEquals(0.65, Item.roundSalesTax(0.67), EPSILON);
+    }
 }

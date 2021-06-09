@@ -16,7 +16,8 @@ public abstract class Item {
     }
 
     public static double roundSalesTax(double tax) {
-        return Math.round(tax * 100.0)/100.0;
+        // https://stackoverflow.com/questions/9256005/java-rounding-to-nearest-0-05
+        return Math.round(tax * 20.0)/20.0;
     }
 
   public abstract double calculateBasicSalesTax();
