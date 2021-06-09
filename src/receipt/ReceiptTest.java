@@ -11,11 +11,10 @@ import static org.junit.Assert.assertTrue;;
 public class ReceiptTest {
     private final double EPSILON = 1e-5;
     private Receipt receipt;
-    private Item item0normal = new ItemNormal(0,"Goods 0 normal",1.0);
-    private Item item1normal = new ItemNormal(1,"Goods 1 normal",0.0);
-    private Item item2normal = new ItemNormal(1,"Goods 2 normal",2.0);
-    private Item item3normal = new ItemNormal(3,"Goods 3 normal",3.0);
-    private Item item4exempt = new ItemExempt(2,"Goods 4 exempt",5.0);
+    private Material materialNomalLocal  = new Material("product normal local", 2.0, 0.1, 0.0);
+    private Material materialExemptLocal = new Material("product exempt local", 3.0, 0.0, 0.0);
+    private Material materialNomalImport = new Material("product normal import", 5.0, 0.1, 0.05);
+    private Material materialExemptImport= new Material("product exempt import", 7.0, 0.0, 0.05);
 
     private void assertSalesTaxAndTotal(double salesTax, double total) {
         assertEquals(salesTax, receipt.getSalesTax(), EPSILON);
@@ -33,43 +32,43 @@ public class ReceiptTest {
     }
 
     @Test
-    public void oneItem0Quantity0Price_SalesTax0_Total0() throws Exception {
-        receipt.add(item0normal);
+    public void oneItemNormalQuantity0Price1_SalesTax0_Total0() throws Exception {
+        receipt.add(new SoldItem(materialNomalLocal, 0, 1.0));
         assertSalesTaxAndTotal(0.0, 0.0);
     }
 
     @Test
-    public void oneItem2Quantity0Price_SalesTax0_Total0() throws Exception {
-        receipt.add(item1normal);
+    public void oneItemNormalQuantity2Price0_SalesTax0_Total0() throws Exception {
+        receipt.add(new SoldItem(materialNomalLocal, 2, 0.0));
         assertSalesTaxAndTotal(0.0, 0.0);
     }
 
     @Test
-    public void oneItem1Quantity_SalesTaxTotal() throws Exception {
-        receipt.add(item2normal);
-        assertSalesTaxAndTotal(0.2, 2.2);
+    public void oneItemNormalQuantity1Price2_SalesTaxTotal() throws Exception {
+        receipt.add(new SoldItem(materialNomalLocal, 3, materialNomalLocal.getBasePrice()));
+        assertSalesTaxAndTotal(0.6, 6.6);
     }
 
     @Test
     public void twoNormalItems_SalesTaxTotal() throws Exception {
-        receipt.add(item2normal);
-        receipt.add(item3normal);
-        assertSalesTaxAndTotal(1.1, 12.1);
+        receipt.add(new SoldItem(materialNomalLocal, 2, 3.0));
+        receipt.add(new SoldItem(materialNomalLocal, 5, 7.0));
+        assertSalesTaxAndTotal(4.1, 45.1);
     }
 
     @Test
     public void oneItemExempt_SalesTaxTotal() throws Exception {
-        receipt.add(item4exempt);
-        assertSalesTaxAndTotal(0.0, 10.0);
+        receipt.add(new SoldItem(materialExemptLocal, 2, 3.0));
+        assertSalesTaxAndTotal(0.0, 6.0);
     }
 
     @Test
     public void salesTaxRoundToNearest5c() throws Exception {
-        assertEquals(0,    Item.roundSalesTax(0.0), EPSILON);
-        assertEquals(0.95, Item.roundSalesTax(0.93), EPSILON);
-        assertEquals(0.8,  Item.roundSalesTax(0.81), EPSILON);
-        assertEquals(0.65, Item.roundSalesTax(0.65), EPSILON);
-        assertEquals(0.7,  Item.roundSalesTax(0.68), EPSILON);
-        assertEquals(0.65, Item.roundSalesTax(0.67), EPSILON);
+        assertEquals(0,    Material.roundSalesTaxTo5c(0.0), EPSILON);
+        assertEquals(0.95, Material.roundSalesTaxTo5c(0.93), EPSILON);
+        assertEquals(0.8,  Material.roundSalesTaxTo5c(0.81), EPSILON);
+        assertEquals(0.65, Material.roundSalesTaxTo5c(0.65), EPSILON);
+        assertEquals(0.7,  Material.roundSalesTaxTo5c(0.68), EPSILON);
+        assertEquals(0.65, Material.roundSalesTaxTo5c(0.67), EPSILON);
     }
 }
