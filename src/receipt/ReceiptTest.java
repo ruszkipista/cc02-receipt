@@ -27,6 +27,16 @@ public class ReceiptTest {
     }
     
     @Test
+    public void salesTaxRoundToNearest5c() throws Exception {
+        assertEquals(0,    SalesTax.roundAmountTo5c(0.0), EPSILON);
+        assertEquals(0.95, SalesTax.roundAmountTo5c(0.93), EPSILON);
+        assertEquals(0.8,  SalesTax.roundAmountTo5c(0.81), EPSILON);
+        assertEquals(0.65, SalesTax.roundAmountTo5c(0.65), EPSILON);
+        assertEquals(0.7,  SalesTax.roundAmountTo5c(0.68), EPSILON);
+        assertEquals(0.65, SalesTax.roundAmountTo5c(0.67), EPSILON);
+    }
+
+    @Test
     public void emptyReceipt_SalesTax0_Total0() throws Exception {
        assertSalesTaxAndTotal(0.0, 0.0);
     }
@@ -57,18 +67,14 @@ public class ReceiptTest {
     }
 
     @Test
-    public void oneItemExempt_SalesTaxTotal() throws Exception {
+    public void oneItemExemptLocal_SalesTaxTotal() throws Exception {
         receipt.add(new SoldItem(materialExemptLocal, 2, 3.0));
         assertSalesTaxAndTotal(0.0, 6.0);
     }
 
     @Test
-    public void salesTaxRoundToNearest5c() throws Exception {
-        assertEquals(0,    SalesTax.roundAmountTo5c(0.0), EPSILON);
-        assertEquals(0.95, SalesTax.roundAmountTo5c(0.93), EPSILON);
-        assertEquals(0.8,  SalesTax.roundAmountTo5c(0.81), EPSILON);
-        assertEquals(0.65, SalesTax.roundAmountTo5c(0.65), EPSILON);
-        assertEquals(0.7,  SalesTax.roundAmountTo5c(0.68), EPSILON);
-        assertEquals(0.65, SalesTax.roundAmountTo5c(0.67), EPSILON);
+    public void oneItemExemptImport_SalesTaxTotal() throws Exception {
+        receipt.add(new SoldItem(materialExemptImport, 2, 3.0));
+        assertSalesTaxAndTotal(0.3, 6.3);
     }
 }
