@@ -137,4 +137,14 @@ public class ReceiptTest {
         receipt.add(new SoldItem(material3, 1, material3.getBasePrice()));
         assertSalesTaxAndTotal(1.50, 29.83);
     }
+
+    // Scenario 2
+    @Test
+    public void bookImportedChocoImportedPerfume_SalesTaxTotal() throws Exception {
+        final Material material1 = new Material("imported box of chocolates", 10.00, 0.0, 0.05);
+        final Material material2 = new Material("imported bottle of perfume", 47.50, 0.1, 0.05);
+        receipt.add(new SoldItem(material1, 1, material1.getBasePrice()));
+        receipt.add(new SoldItem(material2, 1, material2.getBasePrice()));
+        assertSalesTaxAndTotal(7.65, 65.15);
+    }
 }
