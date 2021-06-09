@@ -1,18 +1,9 @@
 package receipt;
 
-public class ItemNormal {
-   private int quantity;
-   private String description;
-   private double price;
+public class ItemNormal extends Item {
 
-   public ItemNormal(int quantity, String description, double price){
-       this.quantity = quantity;
-       this.description = description;
-       this.price = price;
-   }
-
-    public double calculateValue() {
-        return quantity * price;
+    public ItemNormal(int quantity, String description, double price){
+        super(quantity, description, price);
     }
 
     public double calculateBasicSalesTax() {
