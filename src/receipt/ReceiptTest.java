@@ -167,12 +167,21 @@ public class ReceiptTest {
         final Material material3 = 
             new Material("packet of headache pills",    9.75, SalesTax.EXEMPT, SalesTax.LOCAL);
         final Material material4 = 
-            new Material("box of imported chocolates", 11.25, SalesTax.EXEMPT, SalesTax.IMPORT);
+            new Material("box of chocolates", 11.25, SalesTax.EXEMPT, SalesTax.IMPORT);
         receipt.add(new SoldItem(material1, 1, material1.getBasePrice()));
         receipt.add(new SoldItem(material2, 1, material2.getBasePrice()));
         receipt.add(new SoldItem(material3, 1, material3.getBasePrice()) );
         receipt.add(new SoldItem(material4, 1, material4.getBasePrice()));
         assertSalesTaxAndTotal(6.65, 74.63);
+
+        assertEquals(
+        "1 imported bottle of perfume: £32.19\n" +
+        "1 bottle of perfume: £20.89\n" +
+        "1 packet of headache pills: £9.75\n" +
+        "1 imported box of chocolates: £11.80\n" +
+        "Sales Taxes: £6.65\n" +
+        "Total: £74.63",
+         receipt.makeReceipt());
     }
 
     @Test
@@ -185,7 +194,7 @@ public class ReceiptTest {
     @Test
     public void receiptOneNormalImportedItem() throws Exception {
         receipt.add(new SoldItem(materialNormalImport, 2, 3.0));
-        assertEquals("2 imported product normal at £6.90\n" +
+        assertEquals("2 imported product normal: £6.90\n" +
                     "Sales Taxes: £0.90\n" +
                     "Total: £6.90",
                      receipt.makeReceipt());

@@ -44,7 +44,7 @@ public class ShoppingCart {
         return String.format("%d ", item.getQuantity()) +
                ((item.getImportDutyRate() != 0) ? "imported " : "") +
                item.getDescription() +
-               String.format(" at %s%.2f\n", 
+               String.format(": %s%.2f\n", 
                             currencySign, 
                             item.getNetValue()+item.getSalesTax());
     }
