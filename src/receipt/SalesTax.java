@@ -1,6 +1,11 @@
 package receipt;
 
-public class SalesTax {
+public final class SalesTax {
+    public final static double NORMAL = 0.1;
+    public final static double EXEMPT = 0.0;
+    public final static double LOCAL  = 0.0;
+    public final static double IMPORT = 0.05;
+
     public static double calculate(Material material, int soldQuantity, double salePrice){
         double salesTax = 0;
         double netValue = soldQuantity * salePrice;

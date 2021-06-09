@@ -4,17 +4,21 @@ import org.junit.Test;
 import org.junit.Before;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;;
+// import static org.junit.Assert.assertFalse;
+// import static org.junit.Assert.assertNull;
+// import static org.junit.Assert.assertTrue;
 
 public class ReceiptTest {
     private final double EPSILON = 1e-5;
-    private Receipt receipt;
-    private Material materialNormalLocal  = new Material("product normal local", 2.0, 0.1, 0.0);
-    private Material materialExemptLocal  = new Material("product exempt local", 3.0, 0.0, 0.0);
-    private Material materialNormalImport = new Material("product normal import", 5.0, 0.1, 0.05);
-    private Material materialExemptImport = new Material("product exempt import", 7.0, 0.0, 0.05);
+    private ShoppingCart receipt;
+    private Material materialNormalLocal  = 
+        new Material("product normal local", 2.0, SalesTax.NORMAL, SalesTax.LOCAL);
+    private Material materialExemptLocal  = 
+        new Material("product exempt local", 3.0, SalesTax.EXEMPT, SalesTax.LOCAL);
+    private Material materialNormalImport = 
+        new Material("product normal import", 5.0, SalesTax.NORMAL, SalesTax.IMPORT);
+    private Material materialExemptImport = 
+        new Material("product exempt import", 7.0, SalesTax.EXEMPT, SalesTax.IMPORT);
 
     private void assertSalesTaxAndTotal(double salesTax, double total) {
         assertEquals(salesTax, receipt.getSalesTax(), EPSILON);
@@ -23,7 +27,7 @@ public class ReceiptTest {
 
     @Before
     public void setUp() throws Exception {
-        receipt = new Receipt();
+        receipt = new ShoppingCart();
     }
     
     @Test
@@ -129,9 +133,12 @@ public class ReceiptTest {
     // Scenario 1
     @Test
     public void bookMusicChoco_SalesTaxTotal() throws Exception {
-        final Material material1 = new Material("book",          12.49, 0.0, 0.0);
-        final Material material2 = new Material("music CD",      14.99, 0.1, 0.0);
-        final Material material3 = new Material("chocolate bar",  0.85, 0.0, 0.0);
+        final Material material1 = 
+            new Material("book",          12.49, SalesTax.EXEMPT, SalesTax.LOCAL);
+        final Material material2 = 
+            new Material("music CD",      14.99, SalesTax.NORMAL, SalesTax.LOCAL);
+        final Material material3 = 
+            new Material("chocolate bar",  0.85, SalesTax.EXEMPT, SalesTax.LOCAL);
         receipt.add(new SoldItem(material1, 1, material1.getBasePrice()));
         receipt.add(new SoldItem(material2, 1, material2.getBasePrice()));
         receipt.add(new SoldItem(material3, 1, material3.getBasePrice()));
@@ -141,8 +148,10 @@ public class ReceiptTest {
     // Scenario 2
     @Test
     public void bookImportedChocoImportedPerfume_SalesTaxTotal() throws Exception {
-        final Material material1 = new Material("imported box of chocolates", 10.00, 0.0, 0.05);
-        final Material material2 = new Material("imported bottle of perfume", 47.50, 0.1, 0.05);
+        final Material material1 = 
+            new Material("imported box of chocolates", 10.00, SalesTax.EXEMPT, SalesTax.IMPORT);
+        final Material material2 = 
+            new Material("imported bottle of perfume", 47.50, SalesTax.NORMAL, SalesTax.IMPORT);
         receipt.add(new SoldItem(material1, 1, material1.getBasePrice()));
         receipt.add(new SoldItem(material2, 1, material2.getBasePrice()));
         assertSalesTaxAndTotal(7.65, 65.15);
@@ -151,14 +160,24 @@ public class ReceiptTest {
     // Scenario 3
     @Test
     public void fourItemsMixed_SalesTaxTotal() throws Exception {
-        final Material material1 = new Material("imported bottle of perfume", 27.99, 0.1, 0.05);
-        final Material material2 = new Material("bottle of perfume",          18.99, 0.1, 0.0);
-        final Material material3 = new Material("packet of headache pills",    9.75, 0.0, 0.0);
-        final Material material4 = new Material("box of imported chocolates", 11.25, 0.0, 0.05);
+        final Material material1 = 
+            new Material("imported bottle of perfume", 27.99, SalesTax.NORMAL, SalesTax.IMPORT);
+        final Material material2 = 
+            new Material("bottle of perfume",          18.99, SalesTax.NORMAL, SalesTax.LOCAL);
+        final Material material3 = 
+            new Material("packet of headache pills",    9.75, SalesTax.EXEMPT, SalesTax.LOCAL);
+        final Material material4 = 
+            new Material("box of imported chocolates", 11.25, SalesTax.EXEMPT, SalesTax.IMPORT);
         receipt.add(new SoldItem(material1, 1, material1.getBasePrice()));
         receipt.add(new SoldItem(material2, 1, material2.getBasePrice()));
         receipt.add(new SoldItem(material3, 1, material3.getBasePrice()));
         receipt.add(new SoldItem(material4, 1, material4.getBasePrice()));
         assertSalesTaxAndTotal(6.65, 74.63);
+    }
+
+    @Test
+    public void receiptEmpty() throws Exception {
+        String expected = "";
+        assertEquals(expected, receipt.makeReceipt());
     }
 }

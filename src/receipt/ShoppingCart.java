@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import static java.lang.System.out;
 
-public class Receipt {
+public class ShoppingCart {
     private double salesTaxTotal = 0.0;
     private double total = 0.0;
     private List<SoldItem> items = new ArrayList<SoldItem>();
@@ -24,8 +24,8 @@ public class Receipt {
         items.add(item);
     }
 
-    public void print(){
-        out.println();
+    public String makeReceipt(){
+        return "";
     }
 
 }
