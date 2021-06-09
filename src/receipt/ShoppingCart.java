@@ -1,13 +1,16 @@
 package receipt;
 import java.util.ArrayList;
 import java.util.List;
-import static java.lang.System.out;
 
 public class ShoppingCart {
-
+    private String currencySign;
     private double salesTaxTotal = 0.0;
     private double valueTotal = 0.0;
     private List<SoldItem> items = new ArrayList<SoldItem>();
+
+    public ShoppingCart(String currencySign){
+        this.currencySign = currencySign;
+    }
 
     public double getSalesTax(){
         return this.salesTaxTotal;
@@ -26,8 +29,8 @@ public class ShoppingCart {
     }
 
     public String makeReceipt(){
-        return "Sales Taxes: £0.00\n" +
-               "Total: £0.00";
+        return String.format("Sales Taxes: %s0.00\n", currencySign) +
+               String.format("Total: £0.00", currencySign);
     }
 
 }
