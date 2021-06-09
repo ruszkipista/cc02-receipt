@@ -126,4 +126,15 @@ public class ReceiptTest {
         assertSalesTaxAndTotal(5.85, 46.85);
     }
 
+    // Scenario 1
+    @Test
+    public void bookMusicChoco_SalesTaxTotal() throws Exception {
+        final Material material1 = new Material("book",          12.49, 0.0, 0.0);
+        final Material material2 = new Material("music CD",      14.99, 0.1, 0.0);
+        final Material material3 = new Material("chocolate bar",  0.85, 0.0, 0.0);
+        receipt.add(new SoldItem(material1, 1, material1.getBasePrice()));
+        receipt.add(new SoldItem(material2, 1, material2.getBasePrice()));
+        receipt.add(new SoldItem(material3, 1, material3.getBasePrice()));
+        assertSalesTaxAndTotal(1.50, 29.83);
+    }
 }
