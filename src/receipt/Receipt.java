@@ -1,6 +1,7 @@
 package receipt;
 import java.util.ArrayList;
 import java.util.List;
+import static java.lang.System.out;
 
 public class Receipt {
     private double salesTaxTotal = 0.0;
@@ -21,6 +22,10 @@ public class Receipt {
         this.salesTaxTotal +=  salesTax;
         this.total +=  netValue + salesTax;
         items.add(item);
+    }
+
+    public void print(){
+        out.println();
     }
 
 }

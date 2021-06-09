@@ -43,8 +43,8 @@ Total: £65.15
 1 bottle of perfume: £20.89
 1 packet of headache pills: £9.75
 1 imported box of chocolates: £11.85
-Sales Taxes: £6.70
-Total: £74.68
+Sales Taxes: £6.65
+Total: £74.63
 ```
 
 This solution was inspired by https://github.com/unclebob/videostore
