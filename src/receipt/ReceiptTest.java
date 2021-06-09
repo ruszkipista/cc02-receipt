@@ -177,7 +177,8 @@ public class ReceiptTest {
 
     @Test
     public void receiptEmpty() throws Exception {
-        String expected = "";
-        assertEquals(expected, receipt.makeReceipt());
+        assertEquals("Sales Taxes: £0.00\n" +
+                     "Total: £0.00",
+                     receipt.makeReceipt());
     }
 }
