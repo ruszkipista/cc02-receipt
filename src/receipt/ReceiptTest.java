@@ -27,7 +27,7 @@ public class ReceiptTest {
 
     @Before
     public void setUp() throws Exception {
-        receipt = new ShoppingCart("£");
+        receipt = new ShoppingCart(ShoppingCart.CURRENCY_GBP_SIGN);
     }
     
     @Test

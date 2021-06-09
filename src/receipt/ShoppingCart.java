@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingCart {
+    public final static String CURRENCY_GBP_SIGN = "£";
     private String currencySign;
     private double salesTaxTotal = 0.0;
     private double valueTotal = 0.0;
@@ -29,8 +30,8 @@ public class ShoppingCart {
     }
 
     public String makeReceipt(){
-        return String.format("Sales Taxes: %s0.00\n", currencySign) +
-               String.format("Total: £0.00", currencySign);
+        return String.format("Sales Taxes: %s%.2f\n", currencySign, this.salesTaxTotal) +
+               String.format("Total: %s%.2f", currencySign, this.valueTotal);
     }
 
 }
