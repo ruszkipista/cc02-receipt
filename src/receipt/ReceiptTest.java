@@ -9,10 +9,16 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;;
 
 public class ReceiptTest {
-    private final double EPSILON = 0.0001;
+    private final double EPSILON = 1e-5;
     private Receipt receipt;
     private ItemNormal item0 = new ItemNormal(0,"Goods 0",1.0);
     private ItemNormal item1 = new ItemNormal(1,"Goods 1",2.0);
+    private ItemNormal item2 = new ItemNormal(1,"Goods 2",0.0);
+
+    private void assertSalesTaxAndTotal(double salesTax, double total) {
+        assertEquals(salesTax, receipt.getSalesTax(), EPSILON);
+        assertEquals(total, receipt.getTotal(), EPSILON);
+    }
 
     @Before
     public void setUp() throws Exception {
@@ -25,7 +31,7 @@ public class ReceiptTest {
     }
 
     @Test
-    public void oneItem0Quantity_SalesTax0_Total0() throws Exception {
+    public void oneItem0Quantity0Price_SalesTax0_Total0() throws Exception {
         receipt.add(item0);
         assertSalesTaxAndTotal(0.0, 0.0);
     }
@@ -36,9 +42,11 @@ public class ReceiptTest {
         assertSalesTaxAndTotal(0.2, 2.2);
     }
 
-    private void assertSalesTaxAndTotal(double salesTax, double total) {
-        assertEquals(salesTax, receipt.getSalesTax(), EPSILON);
-        assertEquals(total, receipt.getTotal(), EPSILON);
-    }
+    @Test
+    public void oneItem2Quantity0Price_SalesTax0_Total0() throws Exception {
+        receipt.add(item2);
+        assertSalesTaxAndTotal(0.0, 0.0);
+    }    
+
     
 }
