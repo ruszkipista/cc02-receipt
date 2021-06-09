@@ -3,23 +3,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Receipt {
-    private double salesTax = 0.0;
+    private double salesTaxTotal = 0.0;
     private double total = 0.0;
     private List<Item> items = new ArrayList<Item>();
 
     public double getSalesTax(){
-        return salesTax;
+        return this.salesTaxTotal;
     }
 
     public double getTotal(){
-        return total;
+        return this.total;
     }
 
     public void add(Item item) {
-        double tax = item.calculateBasicSalesTax();
+        double salesTax = item.calculateBasicSalesTax();
         double netValue = item.calculateValue();
-        salesTax +=  tax;
-        total +=  netValue + tax;
+        this.salesTaxTotal +=  salesTax;
+        this.total +=  netValue + salesTax;
         items.add(item);
     }
 
