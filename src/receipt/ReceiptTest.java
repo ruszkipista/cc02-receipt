@@ -11,9 +11,10 @@ import static org.junit.Assert.assertTrue;;
 public class ReceiptTest {
     private final double EPSILON = 1e-5;
     private Receipt receipt;
-    private ItemNormal item0 = new ItemNormal(0,"Goods 0",1.0);
-    private ItemNormal item1 = new ItemNormal(1,"Goods 1",2.0);
-    private ItemNormal item2 = new ItemNormal(1,"Goods 2",0.0);
+    private ItemNormal item0normal = new ItemNormal(0,"Goods 0",1.0);
+    private ItemNormal item1normal = new ItemNormal(1,"Goods 1",0.0);
+    private ItemNormal item2normal = new ItemNormal(1,"Goods 2",2.0);
+    private ItemNormal item3normal = new ItemNormal(3,"Goods 3",3.0);
 
     private void assertSalesTaxAndTotal(double salesTax, double total) {
         assertEquals(salesTax, receipt.getSalesTax(), EPSILON);
@@ -32,21 +33,27 @@ public class ReceiptTest {
 
     @Test
     public void oneItem0Quantity0Price_SalesTax0_Total0() throws Exception {
-        receipt.add(item0);
+        receipt.add(item0normal);
+        assertSalesTaxAndTotal(0.0, 0.0);
+    }
+
+    @Test
+    public void oneItem2Quantity0Price_SalesTax0_Total0() throws Exception {
+        receipt.add(item1normal);
         assertSalesTaxAndTotal(0.0, 0.0);
     }
 
     @Test
     public void oneItem1Quantity_SalesTaxTotal() throws Exception {
-        receipt.add(item1);
+        receipt.add(item2normal);
         assertSalesTaxAndTotal(0.2, 2.2);
     }
 
     @Test
-    public void oneItem2Quantity0Price_SalesTax0_Total0() throws Exception {
-        receipt.add(item2);
-        assertSalesTaxAndTotal(0.0, 0.0);
-    }    
-
+    public void twoNormalItems_SalesTaxTotal() throws Exception {
+        receipt.add(item2normal);
+        receipt.add(item3normal);
+        assertSalesTaxAndTotal(1.1, 12.1);
+    }
     
 }
