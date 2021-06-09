@@ -11,12 +11,24 @@ public class SoldItem {
         this.salePrice = salePrice;
     }
 		
-    public double calculateNetValue() {
+    public double getNetValue() {
         return quantity * salePrice;
     }
 
-  public double calculateSalesTax(){
-      return SalesTax.calculate(material, quantity, salePrice);
-  }
+    public int getQuantity(){
+        return this.quantity;
+    }
+
+    public String getDescription(){
+        return material.getDescription();
+    }
+
+    public double getImportDutyRate(){
+        return material.getImportDutyRate();
+    }
+
+    public double getSalesTax(){
+        return SalesTax.calculate(material, quantity, salePrice);
+    }
 
 }
