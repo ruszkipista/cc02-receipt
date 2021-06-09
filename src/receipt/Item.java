@@ -15,6 +15,10 @@ public abstract class Item {
         return quantity * price;
     }
 
+    public static double roundSalesTax(double tax) {
+        return Math.round(tax * 100.0)/100.0;
+    }
+
   public abstract double calculateBasicSalesTax();
 
 }

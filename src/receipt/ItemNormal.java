@@ -7,7 +7,8 @@ public class ItemNormal extends Item {
     }
 
     public double calculateBasicSalesTax() {
-        return calculateValue() * 0.1;
+        double tax = calculateValue() * 0.1;
+        return roundSalesTax(tax);
     }
 
 }
