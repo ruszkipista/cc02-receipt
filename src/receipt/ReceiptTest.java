@@ -11,10 +11,11 @@ import static org.junit.Assert.assertTrue;;
 public class ReceiptTest {
     private final double EPSILON = 1e-5;
     private Receipt receipt;
-    private ItemNormal item0normal = new ItemNormal(0,"Goods 0",1.0);
-    private ItemNormal item1normal = new ItemNormal(1,"Goods 1",0.0);
-    private ItemNormal item2normal = new ItemNormal(1,"Goods 2",2.0);
-    private ItemNormal item3normal = new ItemNormal(3,"Goods 3",3.0);
+    private Item item0normal = new ItemNormal(0,"Goods 0 normal",1.0);
+    private Item item1normal = new ItemNormal(1,"Goods 1 normal",0.0);
+    private Item item2normal = new ItemNormal(1,"Goods 2 normal",2.0);
+    private Item item3normal = new ItemNormal(3,"Goods 3 normal",3.0);
+    private Item item4exempt = new ItemExempt(2,"Goods 4 exempt",5.0);
 
     private void assertSalesTaxAndTotal(double salesTax, double total) {
         assertEquals(salesTax, receipt.getSalesTax(), EPSILON);
@@ -55,5 +56,10 @@ public class ReceiptTest {
         receipt.add(item3normal);
         assertSalesTaxAndTotal(1.1, 12.1);
     }
-    
+
+    @Test
+    public void oneItemExempt_SalesTaxTotal() throws Exception {
+        receipt.add(item4exempt);
+        assertSalesTaxAndTotal(0.0, 10.0);
+    }
 }

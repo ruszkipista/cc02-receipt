@@ -5,7 +5,7 @@ import java.util.List;
 public class Receipt {
     private double salesTax = 0.0;
     private double total = 0.0;
-    private List<ItemNormal> items = new ArrayList<ItemNormal>();
+    private List<Item> items = new ArrayList<Item>();
 
     public double getSalesTax(){
         return salesTax;
@@ -15,7 +15,7 @@ public class Receipt {
         return total;
     }
 
-    public void add(ItemNormal item) {
+    public void add(Item item) {
         double tax = item.calculateBasicSalesTax();
         double netValue = item.calculateValue();
         salesTax +=  tax;
