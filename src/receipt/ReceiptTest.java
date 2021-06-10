@@ -10,10 +10,10 @@ import static org.junit.Assert.assertEquals;
 public class ReceiptTest {
     private final double EPSILON = 1e-5;
     private ShoppingCart receipt;
-    private Material materialNormalLocal = new Material("product normal", 2.0, SalesTax.NORMAL, SalesTax.LOCAL);
-    private Material materialExemptLocal = new Material("product exempt", 3.0, SalesTax.EXEMPT, SalesTax.LOCAL);
-    private Material materialNormalImport = new Material("product normal", 5.0, SalesTax.NORMAL, SalesTax.IMPORT);
-    private Material materialExemptImport = new Material("product exempt", 7.0, SalesTax.EXEMPT, SalesTax.IMPORT);
+    private Material materialNormalLocal = new Material("product normal", 2.0, TaxBasicSales.NORMAL.rate, TaxImportDuty.LOCAL.rate);
+    private Material materialExemptLocal = new Material("product exempt", 3.0, TaxBasicSales.EXEMPT.rate, TaxImportDuty.LOCAL.rate);
+    private Material materialNormalImport = new Material("product normal", 5.0, TaxBasicSales.NORMAL.rate, TaxImportDuty.IMPORT.rate);
+    private Material materialExemptImport = new Material("product exempt", 7.0, TaxBasicSales.EXEMPT.rate, TaxImportDuty.IMPORT.rate);
 
     private void assertSalesTaxAndTotal(double salesTax, double total) {
         assertEquals(salesTax, receipt.getSalesTax(), EPSILON);
@@ -128,9 +128,9 @@ public class ReceiptTest {
     // Scenario 1
     @Test
     public void bookMusicChoco_SalesTaxTotal() throws Exception {
-        final Material material1 = new Material("book", 12.49, SalesTax.EXEMPT, SalesTax.LOCAL);
-        final Material material2 = new Material("music CD", 14.99, SalesTax.NORMAL, SalesTax.LOCAL);
-        final Material material3 = new Material("chocolate bar", 0.85, SalesTax.EXEMPT, SalesTax.LOCAL);
+        final Material material1 = new Material("book", 12.49, TaxBasicSales.EXEMPT.rate, TaxImportDuty.LOCAL.rate);
+        final Material material2 = new Material("music CD", 14.99, TaxBasicSales.NORMAL.rate, TaxImportDuty.LOCAL.rate);
+        final Material material3 = new Material("chocolate bar", 0.85, TaxBasicSales.EXEMPT.rate, TaxImportDuty.LOCAL.rate);
         receipt.add(new SoldItem(material1, 1, material1.getBasePrice()));
         receipt.add(new SoldItem(material2, 1, material2.getBasePrice()));
         receipt.add(new SoldItem(material3, 1, material3.getBasePrice()));
@@ -140,8 +140,8 @@ public class ReceiptTest {
     // Scenario 2
     @Test
     public void bookImportedChocoImportedPerfume_SalesTaxTotal() throws Exception {
-        final Material material1 = new Material("box of chocolates", 10.00, SalesTax.EXEMPT, SalesTax.IMPORT);
-        final Material material2 = new Material("bottle of perfume", 47.50, SalesTax.NORMAL, SalesTax.IMPORT);
+        final Material material1 = new Material("box of chocolates", 10.00, TaxBasicSales.EXEMPT.rate, TaxImportDuty.IMPORT.rate);
+        final Material material2 = new Material("bottle of perfume", 47.50, TaxBasicSales.NORMAL.rate, TaxImportDuty.IMPORT.rate);
         receipt.add(new SoldItem(material1, 1, material1.getBasePrice()));
         receipt.add(new SoldItem(material2, 1, material2.getBasePrice()));
         assertSalesTaxAndTotal(7.65, 65.15);
@@ -150,10 +150,10 @@ public class ReceiptTest {
     // Scenario 3
     @Test
     public void fourItemsMixed_SalesTaxTotal() throws Exception {
-        final Material material1 = new Material("bottle of perfume", 27.99, SalesTax.NORMAL, SalesTax.IMPORT);
-        final Material material2 = new Material("bottle of perfume", 18.99, SalesTax.NORMAL, SalesTax.LOCAL);
-        final Material material3 = new Material("packet of headache pills", 9.75, SalesTax.EXEMPT, SalesTax.LOCAL);
-        final Material material4 = new Material("box of chocolates", 11.25, SalesTax.EXEMPT, SalesTax.IMPORT);
+        final Material material1 = new Material("bottle of perfume", 27.99, TaxBasicSales.NORMAL.rate, TaxImportDuty.IMPORT.rate);
+        final Material material2 = new Material("bottle of perfume", 18.99, TaxBasicSales.NORMAL.rate, TaxImportDuty.LOCAL.rate);
+        final Material material3 = new Material("packet of headache pills", 9.75, TaxBasicSales.EXEMPT.rate, TaxImportDuty.LOCAL.rate);
+        final Material material4 = new Material("box of chocolates", 11.25, TaxBasicSales.EXEMPT.rate, TaxImportDuty.IMPORT.rate);
         receipt.add(new SoldItem(material1, 1, material1.getBasePrice()));
         receipt.add(new SoldItem(material2, 1, material2.getBasePrice()));
         receipt.add(new SoldItem(material3, 1, material3.getBasePrice()));
