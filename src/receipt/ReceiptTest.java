@@ -3,6 +3,8 @@ package receipt;
 import org.junit.Test;
 import org.junit.Before;
 
+import java.text.NumberFormat;
+
 import static org.junit.Assert.assertEquals;
 // import static org.junit.Assert.assertFalse;
 // import static org.junit.Assert.assertNull;
@@ -199,4 +201,12 @@ public class ReceiptTest {
                     "Total: £6.90",
                      receipt.makeReceipt());
     }
+
+    @Test
+    public void currencyValueFormatGBP() throws Exception {
+        NumberFormat form = Currency.GBP.currencyFormat;
+        double myNumber = 1234.56d;
+        assertEquals("£1,234.56", form.format(myNumber));
+    }
+
 }
