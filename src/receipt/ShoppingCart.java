@@ -1,4 +1,5 @@
 package receipt;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,15 +11,15 @@ public class ShoppingCart {
     private double valueTotal = 0.0;
     private List<SoldItem> items = new ArrayList<SoldItem>();
 
-    public ShoppingCart(Currency currency){
+    public ShoppingCart(Currency currency) {
         this.currencyFormat = currency.currencyFormat;
     }
 
-    public double getSalesTax(){
+    public double getSalesTax() {
         return this.salesTaxTotal;
     }
 
-    public double getTotal(){
+    public double getTotal() {
         return this.valueTotal;
     }
 
@@ -30,7 +31,7 @@ public class ShoppingCart {
         items.add(item);
     }
 
-    public String makeReceipt(){
+    public String makeReceipt() {
         return makeItems() + makeSummary();
     }
 
@@ -43,14 +44,15 @@ public class ShoppingCart {
 
     private String makeItemLine(SoldItem item) {
         return String.format("%d ", item.getQuantity()) 
-        + ((item.getImportDutyRate() != 0) ? "imported " : "")
-        + item.getDescription()
-        + String.format(": %s\n", currencyFormat.format(item.getNetValue()+item.getSalesTax()));
+                + ((item.getImportDutyRate() != 0) ? "imported " : "")
+                + item.getDescription()
+                + String.format(": %s\n", currencyFormat.format(item.getNetValue() 
+                + item.getSalesTax()));
     }
 
     private String makeSummary() {
         return String.format("Sales Taxes: %s\n", currencyFormat.format(this.salesTaxTotal))
-             + String.format("Total: %s", currencyFormat.format(this.valueTotal));
+                + String.format("Total: %s", currencyFormat.format(this.valueTotal));
     }
 
 }
