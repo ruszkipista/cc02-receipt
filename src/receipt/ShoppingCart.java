@@ -5,7 +5,6 @@ import java.util.List;
 import java.text.NumberFormat;
 
 public class ShoppingCart {
-    public final static String CURRENCY_GBP_SIGN = "£";
     private NumberFormat currencyFormat;
     private double salesTaxTotal = 0.0;
     private double valueTotal = 0.0;
