@@ -2,15 +2,17 @@ package receipt;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.text.NumberFormat;
+
 public class ShoppingCart {
     public final static String CURRENCY_GBP_SIGN = "£";
-    private String currencySign;
+    private NumberFormat currencyFormat;
     private double salesTaxTotal = 0.0;
     private double valueTotal = 0.0;
     private List<SoldItem> items = new ArrayList<SoldItem>();
 
-    public ShoppingCart(String currencySign){
-        this.currencySign = currencySign;
+    public ShoppingCart(Currency currency){
+        this.currencyFormat = currency.currencyFormat;
     }
 
     public double getSalesTax(){
@@ -41,17 +43,15 @@ public class ShoppingCart {
     }
 
     private String makeItemLine(SoldItem item) {
-        return String.format("%d ", item.getQuantity()) +
-               ((item.getImportDutyRate() != 0) ? "imported " : "") +
-               item.getDescription() +
-               String.format(": %s%.2f\n", 
-                            currencySign, 
-                            item.getNetValue()+item.getSalesTax());
+        return String.format("%d ", item.getQuantity()) 
+        + ((item.getImportDutyRate() != 0) ? "imported " : "")
+        + item.getDescription()
+        + String.format(": %s\n", currencyFormat.format(item.getNetValue()+item.getSalesTax()));
     }
 
     private String makeSummary() {
-        return String.format("Sales Taxes: %s%.2f\n", currencySign, this.salesTaxTotal) +
-               String.format("Total: %s%.2f", currencySign, this.valueTotal);
+        return String.format("Sales Taxes: %s\n", currencyFormat.format(this.salesTaxTotal))
+             + String.format("Total: %s", currencyFormat.format(this.valueTotal));
     }
 
 }
