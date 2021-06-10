@@ -2,13 +2,13 @@ package receipt;
 
 public final class SalesTax {
 
-    public static double calculate(Material material, int soldQuantity, double salePrice) {
-        double salesTax = 0;
+    public static double calculate(int soldQuantity, double salePrice, 
+            double basicSalesTaxRate,
+            double importDutyTaxRate) {
         double netValue = soldQuantity * salePrice;
-        double basicSalesTax = netValue * material.getBasicSalesTaxRate();
-        salesTax += basicSalesTax;
-        double importDuty = netValue * material.getImportDutyRate();
-        salesTax += importDuty;
+        double basicSalesTax = TaxImportDuty.calculate(netValue, basicSalesTaxRate);
+        double importDuty = TaxImportDuty.calculate(netValue, importDutyTaxRate);
+        double salesTax = basicSalesTax + importDuty;
         return roundAmountTo5c(salesTax);
     }
 

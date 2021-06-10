@@ -16,8 +16,8 @@ public class ReceiptTest {
     private Material materialExemptImport = new Material("product exempt", 7.0, TaxBasicSales.EXEMPT.rate, TaxImportDuty.IMPORT.rate);
 
     private void assertSalesTaxAndTotal(double salesTax, double total) {
-        assertEquals(salesTax, receipt.getSalesTax(), EPSILON);
-        assertEquals(total, receipt.getTotal(), EPSILON);
+        assertEquals(salesTax, receipt.getTotalSalesTax(), EPSILON);
+        assertEquals(total, receipt.getTotalValue(), EPSILON);
     }
 
     @Before

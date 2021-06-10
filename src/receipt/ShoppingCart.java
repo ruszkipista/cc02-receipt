@@ -15,17 +15,17 @@ public class ShoppingCart {
         this.currencyFormat = currency.currencyFormat;
     }
 
-    public double getSalesTax() {
+    public double getTotalSalesTax() {
         return this.salesTaxTotal;
     }
 
-    public double getTotal() {
+    public double getTotalValue() {
         return this.valueTotal;
     }
 
     public void add(SoldItem item) {
-        double salesTax = item.getSalesTax();
-        double netValue = item.getNetValue();
+        double salesTax = item.calculateSalesTax();
+        double netValue = item.calculateNetValue();
         this.salesTaxTotal += salesTax;
         this.valueTotal += netValue + salesTax;
         items.add(item);
@@ -43,11 +43,11 @@ public class ShoppingCart {
     }
 
     private String makeItemLine(SoldItem item) {
-        return String.format("%d ", item.getQuantity()) 
-                + ((item.getImportDutyRate() != 0) ? "imported " : "")
+        return String.format("%d ", item.getSoldQuantity()) 
+                + ((item.getImportDutyRate() != TaxImportDuty.LOCAL.rate) ? "imported " : "")
                 + item.getDescription()
-                + String.format(": %s\n", currencyFormat.format(item.getNetValue() 
-                + item.getSalesTax()));
+                + String.format(": %s\n", currencyFormat.format(item.calculateNetValue() 
+                + item.calculateSalesTax()));
     }
 
     private String makeSummary() {
